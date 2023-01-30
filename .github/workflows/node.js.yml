@@ -24,8 +24,11 @@ jobs:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: 18.x
         cache: 'pnpm'
-    - run: pnpm ci
-    - run: pnpm build --if-present
-    - run: pnpm test
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build website
+        run: pnpm build
+
